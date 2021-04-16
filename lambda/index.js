@@ -1,13 +1,34 @@
-const response = require('cfn-response');
+const cfnResponse = require('cfn-response-async');
 
-exports.handler = (event, context) => {
+exports.handler = async (event, context) => {
   try {
-    // eslint-disable-next-line no-console
     console.log('Event', JSON.stringify(event));
-    response.send(event, context, response.SUCCESS, {});
+
+    switch (event.RequestType) {
+      case 'Create':
+        return await create(event, context);
+      case 'Update':
+        return await update(event, context);
+      case 'Delete':
+        return await del(event, context);
+      default:
+        return {};
+    }
   } catch (ex) {
-    // eslint-disable-next-line no-console
     console.log('Error', ex);
-    response.send(event, context, response.FAILED, {});
+    await cfnResponse.send(event, context, cfnResponse.FAILED, {});
+    return {};
   }
+};
+
+const create = async (event, context) => {
+  await cfnResponse.send(event, context, cfnResponse.SUCCESS, {});
+};
+
+const update = async (event, context) => {
+  await cfnResponse.send(event, context, cfnResponse.SUCCESS, {});
+};
+
+const del = async (event, context) => {
+  await cfnResponse.send(event, context, cfnResponse.SUCCESS, {});
 };

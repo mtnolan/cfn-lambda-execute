@@ -5,6 +5,6 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
-    "cfn-response": "^1.0.1"
+    "cfn-response-async": "^1.0.0"
   }
 }
